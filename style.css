@@ -1,0 +1,440 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f14;
+            color: #e6e6e6;
+            min-height: 100vh;
+            /* 移除padding实现全屏 */
+            padding: 0;
+            /* 毛玻璃效果 */
+            background: rgba(15, 15, 20, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            /* 全屏设置 */
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .container {
+            /* 全屏设置 */
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+            /* 容器也添加一些透明效果 */
+            background: rgba(255, 255, 255, 0.03);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            /* 确保内容可以滚动 */
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        /* ColorOS 16风格标题栏 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header h1 {
+            font-weight: 600;
+            font-size: 28px;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #6a93ff, #8b5cf6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .header-controls {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .btn {
+            background-color: rgba(255, 255, 255, 0.08);
+            border: none;
+            color: #e6e6e6;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .btn:hover {
+            background-color: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #6a93ff, #8b5cf6);
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #5a83ff, #7b4cf6);
+            box-shadow: 0 8px 24px rgba(107, 147, 255, 0.2);
+        }
+        
+        /* 筛选栏 */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: sticky;
+            top: 90px;
+            z-index: 99;
+        }
+        
+        .filter-btn {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: none;
+            color: #a0a0a0;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .filter-btn.active {
+            background-color: rgba(107, 147, 255, 0.2);
+            color: #6a93ff;
+        }
+        
+        .filter-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        /* 相册网格布局 - 全屏适配 */
+        .album-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            padding: 0 10px 20px;
+        }
+        
+        /* 图片卡片样式 - ColorOS 16风格 - 修改为100x100 */
+        .photo-card {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            width: 100px;
+            height: 100px;
+            /* 毛玻璃效果 */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            /* 确保卡片在网格中居中 */
+            margin: 0 auto;
+        }
+        
+        .photo-card:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.2);
+            background-color: rgba(255, 255, 255, 0.08);
+            border-color: rgba(107, 147, 255, 0.3);
+        }
+        
+        .photo-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .photo-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .photo-card:hover .photo-info {
+            opacity: 1;
+        }
+        
+        .photo-title {
+            font-weight: 500;
+            font-size: 12px;
+            margin-bottom: 2px;
+            color: #f0f0f0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .photo-date {
+            font-size: 10px;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        /* 大图预览模态框 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            backdrop-filter: blur(40px);
+            -webkit-backdrop-filter: blur(40px);
+        }
+        
+        .modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 80%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        
+        .modal-content img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .modal-info {
+            margin-top: 20px;
+            text-align: center;
+            max-width: 600px;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+        
+        .modal-date {
+            color: #aaa;
+            font-size: 16px;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .close-modal:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: rotate(90deg);
+        }
+        
+        /* 空状态提示 */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 80px 20px;
+            color: #888;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-top: 40px;
+        }
+        
+        .empty-state i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+        
+        /* 响应式设计 - 全屏适配 */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .album-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 12px;
+                padding: 0 5px 20px;
+            }
+            
+            .photo-card {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .header {
+                padding: 12px 15px;
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .header h1 {
+                font-size: 22px;
+            }
+            
+            .filter-bar {
+                padding: 10px 15px;
+                top: 80px;
+            }
+            
+            .modal-info {
+                max-width: 90%;
+                padding: 12px 15px;
+            }
+        }
+        
+        /* 小屏幕适配 */
+        @media (max-width: 480px) {
+            .album-grid {
+                grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+                gap: 10px;
+            }
+            
+            .photo-card {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .header h1 {
+                font-size: 20px;
+            }
+            
+            .filter-btn {
+                padding: 6px 12px;
+                font-size: 13px;
+            }
+        }
+        
+        /* 大屏幕适配 */
+        @media (min-width: 1200px) {
+            .album-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 18px;
+            }
+            
+            .photo-card {
+                width: 130px;
+                height: 130px;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 5px;
+            backdrop-filter: blur(10px);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(107, 147, 255, 0.5);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(107, 147, 255, 0.8);
+        }
+        
+        /* 隐藏默认滚动条但保留功能 */
+        .container::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .container::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .container::-webkit-scrollbar-thumb {
+            background: rgba(107, 147, 255, 0.3);
+            border-radius: 4px;
+        }
+        
+        .container::-webkit-scrollbar-thumb:hover {
+            background: rgba(107, 147, 255, 0.5);
+        }

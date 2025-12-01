@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ColorOS 16 相册系统</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="style.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 标题栏 -->
+        <header class="header">
+            <h1>
+                <i class="fas fa-images"></i>
+                ColorOS 16 相册
+            </h1>
+            <div class="header-controls">
+                
+            </div>
+        </header>
+        
+        <!-- 筛选栏 -->
+        <div class="filter-bar">
+            <button class="filter-btn active" data-filter="all">全部照片</button>
+            
+
+        </div>
+        
+        <!-- 相册网格 -->
+        <div class="album-grid" id="albumGrid">
+            <!-- 图片将通过JavaScript动态生成 -->
+        </div>
+        
+        <!-- 大图预览模态框 -->
+        <div class="modal" id="imageModal">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="modal-content">
+                <img id="modalImage" src="" alt="">
+            </div>
+            <div class="modal-info">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <p id="modalDate" class="modal-date"></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+</script>  <script src="script.js"></script>
+</body>
+</html>
